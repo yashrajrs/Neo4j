@@ -1,0 +1,16 @@
+CREATE (OP { name: "OverlandPark", state: "KS" }),(KC { name: "KansasCity", state: "MO" }),(OP)-[:CONNECTION {miles: 13}]->(KC);
+START ee=node(*) MATCH (ee)-[:CONNECTION]->(friends) WHERE ee.name! = "OverlandPark" RETURN CONNECTION;
+START ee=node(*) WHERE ee.name! = "KansasCity" RETURN ee.name;
+
+
+
+START n=node(*) MATCH (n) - [r] -> (m) WHERE n.name! = "Kolkata" RETURN r.Type;
+
+CREATE (Kolkata { name:"Kolkata"}), (Delhi {name:"Delhi"}) , (Mumbai {name:"Mumbai"}), (Goa {name:"Goa"}), (Kolkata)-[:CONNECTION {bus:1,miles:10,time:20,startNode:"Kolkata",endNode:"Delhi"}]->(Delhi),(Delhi)-[:CONNECTION {bus:1,miles:10,time:20,startNode:"Delhi",endNode:"Mumbai"}]->(Mumbai),(Mumbai)-[:CONNECTION {bus:1,miles:10,time:20,startNode:"Mumbai",endNode:"Goa"}]->(Goa),(Kolkata)-[:CONNECTION {bus:2,miles:20,time:50,startNode:"Kolkata",endNode:"Mumbai"}]->(Mumbai);
+
+MATCH (start)-->(stop) WHERE start.name="Kolkata", stop.name="Goa" RETURN start;
+
+START n=node(*) MATCH (n) - [r] -> (m) WHERE n.name! = "Kolkata" RETURN r;
+
+START n=node(*) MATCH (n)-[r:CONNECTION*1..3]->(xe) WHERE n.name ="Kolkata" AND xe.name ="Goa" RETURN r;
+
